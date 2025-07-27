@@ -6,13 +6,13 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:00:00 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/06/26 15:38:16 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 11:22:50 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr_s(char const *s, unsigned int start, size_t len)
+char	*ft_substr_env(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*p;

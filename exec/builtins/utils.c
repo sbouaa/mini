@@ -6,13 +6,13 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 01:55:25 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 07:00:02 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 11:26:48 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_env	*ft_lstnew_s(char *key, char *value)
+t_env	*ft_lstnew_env(char *key, char *value)
 {
 	t_env	*node;
 

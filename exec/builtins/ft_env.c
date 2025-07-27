@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:09:14 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/22 19:36:09 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 11:25:27 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static t_env	*env_node(char *envp)
 	del = ft_strchr(envp, '=');
 	if (!del)
 		return (NULL);
-	key = ft_substr_s(envp, 0, del - envp);
-	value = ft_strdup_s(del + 1);
+	key = ft_substr_env(envp, 0, del - envp);
+	value = ft_strdup_env(del + 1);
 	if (!key || !value)
 		return (NULL);
-	node = ft_lstnew_s(key, value);
+	node = ft_lstnew_env(key, value);
 	if (!node)
 		return (NULL);
 	return (node);

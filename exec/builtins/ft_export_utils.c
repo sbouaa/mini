@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 21:35:41 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 05:30:23 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 11:13:07 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ char	*get_key_and_value(char *var, int type)
 		pos = ft_strchr(var, '=');
 		if (!pos)
 			return (NULL);
-		return (ft_strdup_s(pos + 1));
+		return (ft_strdup_env(pos + 1));
 	}
 	else
 	{
 		pos = ft_strchr(var, '=');
 		if (!pos)
-			return (ft_strdup_s(var));
+			return (ft_strdup_env(var));
 		if (pos && *(pos - 1) == '+')
 			pos--;
-		return (ft_substr_s(var, 0, pos - var));
+		return (ft_substr_env(var, 0, pos - var));
 	}
 }
 

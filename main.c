@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 02:22:30 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 07:05:44 by sbouaa           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	free_prompt(t_data *data)
@@ -18,53 +6,6 @@ static void	free_prompt(t_data *data)
 	{
 		free(data->prompt);
 		data->prompt = NULL;
-	}
-}
-
-static void	print_redirections(t_redirection *redir)
-{
-	while (redir)
-	{
-		printf("  Redirection:\n");
-		printf("    Type: %d\n", redir->type);
-		printf("    File: %s\n", redir->file);printf("    FD: %d\n", redir->fd);
-		redir = redir->next;
-	}
-}
-
-void	print_parsed_commands(t_command *cmd)
-{
-	int				i;
-	t_redirection	*redir;
-
-	while (cmd)
-	{
-		printf("Command:\n");
-		i = 0;
-		while (cmd->args && cmd->args[i])
-		{
-			printf("  Arg[%d]: %s\n", i, cmd->args[i]);
-			i++;
-		}
-		redir = cmd->redirects;
-		print_redirections(redir);
-		cmd = cmd->next;
-	}
-}
-
-void	print_tokens(t_token *token)
-{
-	int	i;
-
-	i = 0;
-	while (token)
-	{
-		printf("Token[%d]:\n", i);
-		printf("  Type      : %d\n", token->type);
-		printf("  Value     : %s\n", token->value);
-		printf("  Ambiguous : %d\n", token->ambiguous);
-		token = token->next;
-		i++;
 	}
 }
 
@@ -169,8 +110,10 @@ int	main(int ac, char **av, char **env)
 			break ;
 		data.token_list = quote_remove(&data);
 		execute_commands(&data);
-		(close_all(-2,1), g_malloc(0, FREE));
+		close_all(-2,1);
+		g_malloc(0, FREE);
 	}
-	(g_malloc(0, FREE), gc_malloc(0, FREE), close_all(-2,1));
+	g_malloc(0, FREE);
+	gc_malloc(0, FREE);
 	return (data.exit_status);
 }

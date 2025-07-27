@@ -6,13 +6,13 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 05:32:25 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 05:37:23 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 11:25:45 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_s(char const	*s1, char const	*s2)
+char	*ft_strjoin_env(char const	*s1, char const	*s2)
 {
 	size_t	s1_len;
 	size_t	s2_len;
@@ -22,9 +22,9 @@ char	*ft_strjoin_s(char const	*s1, char const	*s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (ft_strdup_s(s2));
+		return (ft_strdup_env(s2));
 	if (!s2)
-		return (ft_strdup_s(s1));
+		return (ft_strdup_env(s1));
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	p = gc_malloc((s1_len + s2_len + 1) * sizeof(char), MALLOC);

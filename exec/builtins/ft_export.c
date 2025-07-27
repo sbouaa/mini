@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 02:58:06 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 05:34:18 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:18:32 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	to_env(char *key, char *var, int type, t_env *env)
 {
 	char	*value;
+	char	*expanded;
 
 	if (type == 3)
 		return (add_env_var(key, NULL, &env), 0);
@@ -23,8 +24,9 @@ int	to_env(char *key, char *var, int type, t_env *env)
 		value = get_key_and_value(var, 1);
 		if (!value)
 			return (1);
-		else
-			return (add_env_var(key, value, &env), 1);
+		expanded = expand_var_value(value, env);
+		add_env_var(key, value, &env);
+		return (1);
 	}
 	return (0);
 }
@@ -33,6 +35,7 @@ int	var_in_env(char *key, char *var, int type, t_env *env)
 {
 	char	*value;
 	char	*n_value;
+	char	*expanded;
 	t_env	*ex_var;
 
 	if (type == 3)
@@ -43,16 +46,15 @@ int	var_in_env(char *key, char *var, int type, t_env *env)
 	ex_var = ft_search_env(key, env);
 	if (type == 1)
 	{
-		ex_var->value = value;
+		expanded = expand_var_value(value, env);
+		ex_var->value = expanded;
 		return (0);
 	}
 	if (type == 2)
 	{
-		n_value = ft_strjoin_s(ex_var->value, value);
-		if (!n_value)
-			return (1);
+		expanded = expand_var_value(value, env);
+		n_value = ft_strjoin_env(ex_var->value, expanded);
 		ex_var->value = n_value;
-		return (0);
 	}
 	return (0);
 }

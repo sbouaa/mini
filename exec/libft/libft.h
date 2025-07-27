@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 22:55:27 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 06:49:12 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:00 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-char				*ft_strjoin_s(char const	*s1, char const	*s2);
-char				*ft_substr_s(char const *s, unsigned int start, size_t len);
-char				*ft_strdup_s(const char *s1);
+char				*ft_strjoin_env(char const	*s1, char const	*s2);
+char				*ft_substr_env(char const *s, unsigned int start,
+						size_t len);
+char				*ft_strdup_env(const char *s1);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);

@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 23:21:46 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 07:00:56 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:19:23 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ typedef struct s_command
 {
 	char					**args;
 	t_redirection			*redirects;
-	int						fd_in;
-	int						fd_out;
 	int						exit_status;
 	struct s_command		*next;
 }							t_command;
@@ -170,12 +168,11 @@ typedef struct s_word_info
 /*                                                                            */
 /* ************************************************************************** */
 
-t_col						*new_node_env(void *ptr);
-t_col						*last_node_env(t_col **head);
-void						add_back_env(t_col **head, t_col *node);
-void						clear_all_env(t_col **head);
+t_col						*new_node_s(void *ptr);
+t_col						*last_node_s(t_col **head);
+void						add_back_s(t_col **head, t_col *node);
+void						clear_all_s(t_col **head);
 void						*gc_malloc(size_t size, t_call call);
-//
 t_col						*new_node(void *ptr);
 t_col						*last_node(t_col **head);
 void						add_back(t_col **head, t_col *node);
@@ -211,7 +208,7 @@ t_env						*add_env_var(char *key, char *value, t_env **env);
 t_env						*ft_search_env(char *key, t_env *env);
 void						ft_lstadd_back(t_env **lst, t_env *node);
 t_env						*ft_lstnew(char *key, char *value);
-t_env						*ft_lstnew_s(char *key, char *value);
+t_env						*ft_lstnew_env(char *key, char *value);
 int							env_del(char *name, t_env **env);
 int							export_var(char *var, t_env *env);
 void						pr_error(char *var);
@@ -337,6 +334,7 @@ t_token						*handle_error_and_skip_to_pipe(t_command **head,
 /* ************************************************************************** */
 
 char						*expand(char *prompt, t_env *env, t_data *data);
+char						*expand_var_value(char *value, t_env *env);
 void						expand_redirections(t_token *token, t_env *env,
 								t_data *data);
 void						update_quote_states(char c, int *in_s, int *in_d);
@@ -376,5 +374,5 @@ int							is_word_token(t_token *token);
 void						ft_bzero(void *s, size_t n);
 void						execute_commands(t_data *data);
 void						rl_replace_line(const char *text, int clear_undo);
-
+void						handle_export_dollar(t_expand *exp, t_env *env, t_data *data);
 #endif

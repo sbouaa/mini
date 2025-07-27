@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:12:56 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/25 17:37:25 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:18:52 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ void	ft_sort_env(t_env *env)
 		}
 		env = env->next;
 	}
+}
+
+char	*expand_var_value(char *value, t_env *env)
+{
+	t_env	*var;
+
+	if (!value || value[0] != '$')
+		return (ft_strdup_env(value));
+	var = ft_search_env(value + 1, env);
+	if (!var || !var->value)
+		return (ft_strdup_env(""));
+	return (ft_strdup_env(var->value));
 }

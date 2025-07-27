@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 20:51:22 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 07:19:04 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:20:31 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,6 @@ int	check_file(char *name)
 			return (ft_putstr_fd(": Permission denied\n", 2), 126);
 		}
 	}
-	else
-	{
-		(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(name, 2));
-		return (ft_putstr_fd(": command not found\n", 2), 127);
-	}
-	return (0);
+	(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(name, 2));
+	return (ft_putstr_fd(": command not found\n", 2), 127);
 }
