@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:12:56 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 20:21:55 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 22:42:50 by amsaq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*expand_var_value(char *value, t_env *env)
 
 	if (!value)
 		return (ft_strdup_env(""));
-	expanded = expand(value, env, NULL, 0);
+	expanded = expand(value, env, NULL);
 	if (!expanded)
 		return (ft_strdup_env(""));
 	return (expanded);

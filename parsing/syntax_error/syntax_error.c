@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 08:12:10 by amsaq             #+#    #+#             */
-/*   Updated: 2025/07/28 20:42:38 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 22:55:28 by amsaq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_heredoc_errors(t_token *token)
 	{
 		if (!token->next || !token->next->value[0]
 			|| !is_word_token(token->next))
-			return (ft_putstr_fd("Syntax error: expected dl after `<<'\n", 2), 258);
+			return (ft_putstr_fd("Syntax error: expected `<<'\n", 2), 258);
 		if (token->next->value
 			&& !is_valid_heredoc_delimiter(token->next->value))
 			return (ft_putstr_fd("Syntax error: invalid heredoc dl\n", 2), 258);

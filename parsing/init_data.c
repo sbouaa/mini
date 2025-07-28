@@ -6,7 +6,7 @@
 /*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 06:39:51 by amsaq             #+#    #+#             */
-/*   Updated: 2025/07/28 15:21:07 by amsaq            ###   ########.fr       */
+/*   Updated: 2025/07/28 22:39:22 by amsaq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	init_data(t_data *data)
 	data->exit_status = 0;
 	data->commands = NULL;
 	data->heredoc_fd = -1;
+	data->flag_herdoc = 0;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:01:11 by amsaq             #+#    #+#             */
-/*   Updated: 2025/07/28 20:45:47 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 22:43:03 by amsaq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	process_expansion(t_data *data, t_env *env)
 	char	*old_prompt;
 
 	old_prompt = data->prompt;
-	data->prompt = expand(data->prompt, env, data, 0);
+	data->prompt = expand(data->prompt, env, data);
 	free(old_prompt);
 	if (lexer(data))
 		return (handle_lexer_error(data));
@@ -64,9 +64,9 @@ void	sigint_handler(int sig)
 	(void)sig;
 	g_signal = 1;
 	write(1, "\n", 1);
-	//rl_on_new_line();
-	//set_es_signal(0, NULL);
-	//rl_replace_line("", 0);
+	rl_on_new_line();
+	set_es_signal(0, NULL);
+	rl_replace_line("", 0);
 	if (!dont_display(0, 0))
 		rl_redisplay();
 	else
