@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 23:21:46 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:19:23 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:27:30 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <unistd.h>
+
 
 # define DEF_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
@@ -220,6 +221,7 @@ int							var_in_env(char *key, char *var, int type,
 t_env						*init_data_exec(char **envp);
 t_env						*copy_env(t_env *env);
 void						ft_sort_env(t_env *env);
+char						*ft_getkey(char *name, t_env *env);
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -250,6 +252,7 @@ int							execute_single(t_command *cmd, t_env **env);
 int							check_file(char *name);
 void						close_all(int fd, int flag);
 void						shell_do(char *arg, char **env);
+int							clean(t_pipe *p);
 
 /* ************************************************************************** */
 /*                                                                            */

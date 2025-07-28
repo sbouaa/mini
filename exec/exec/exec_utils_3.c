@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:10:38 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:01:57 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 16:14:45 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	exec_cmd(char *path, char **env, t_command *cmd)
 		return (perror("fork"), 1);
 	if (pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
 		execve(path, cmd->args, env);
 		if (errno == ENOEXEC)
 			shell_do(cmd->args[0], env);

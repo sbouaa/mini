@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:05:37 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:13:29 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:17:31 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static int	getcwd_fail(char *o_cwd, char *dir, t_env **env)
 		temp = ft_strjoin(o_cwd, "/");
 		n_pwd = ft_strjoin(temp, dir);
 	}
-	add_env_var("OLDPWD", o_cwd, env);
-	add_env_var("PWD", n_pwd, env);
+	if (ft_getkey("pwd", *env))
+		add_env_var("OLDPWD", o_cwd, env);
+	if (ft_getkey("OLDPWD", *env))
+		add_env_var("PWD", n_pwd, env);
 	return (0);
 }
 
@@ -40,11 +42,14 @@ static int	up_pwd_env(char *o_cwd, char *dir, t_env **env)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (getcwd_fail(o_cwd, dir, env));
-	if (o_cwd && *o_cwd)
-		add_env_var("OLDPWD", o_cwd, env);
-	else
-		env_del("OLDPWD", env);
-	if (ft_getenv("PWD", *env))
+	if (ft_getkey("OLDPWD", *env))
+	{
+		if (o_cwd && *o_cwd)
+			add_env_var("OLDPWD", o_cwd, env);
+		else
+			env_del("OLDPWD", env);
+	}
+	if (ft_getkey("PWD", *env))
 		add_env_var("PWD", cwd, env);
 	return (free(cwd), 0);
 }
@@ -74,6 +79,8 @@ static int	cd_exec(char **args, t_env **env, char *cwd, int nf)
 		ret = cd_home(cwd, env);
 	else if (chdir(args[1]) == -1)
 	{
+		if (!*args[1])
+			return (0);
 		ft_putstr_fd("minishell: cd: ", 2);
 		ret = (perror(args[1]), 1);
 	}

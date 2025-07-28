@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:26:15 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 07:09:21 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:26:10 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	multi_pipes(t_command	*cmd, t_env	**env)
 	while (cmd)
 	{
 		if (handle_child(cmd, &p, env))
-			return (1);
+			return (clean(&p));
 		if (p.prev_fd != -1)
 			close(p.prev_fd);
 		if (cmd->next)

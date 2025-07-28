@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:08:36 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 11:12:29 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:23:51 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_env	*add_env_var(char *key, char *value, t_env **env)
 		key = ft_strdup_env(key);
 		node = ft_lstnew_env(key, value);
 		ft_lstadd_back(env, node);
+		return (node);
 	}
 	ex_node = ft_search_env(key, *env);
 	if (ex_node)

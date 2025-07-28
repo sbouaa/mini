@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 20:51:22 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:20:31 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/27 15:04:18 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ char	**switch_env_arr(t_env *env)
 
 	size = 0;
 	tmp = env;
-	while (tmp && ++size)
+	while (tmp)
+	{
+		size++;
 		tmp = tmp->next;
+	}
 	arr = g_malloc(sizeof(char *) * (size + 1), MALLOC);
 	size = 0;
 	tmp = env;
