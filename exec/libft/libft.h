@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 22:55:27 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:21:00 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:44:45 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ long long			ft_atoi_s(char *str);
 int					ft_isspace(char c);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
-char				*ft_strnstr(const char *haystack, const char *needle,
-						size_t len);
+char				*ft_strnstr(const char *haystack, const char *needle);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strrchr(const char *s, int c);

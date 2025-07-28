@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:12:56 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 20:13:19 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:21:55 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ t_env	*ft_sort_env(t_env *env)
 
 char	*expand_var_value(char *value, t_env *env)
 {
-	t_env	*var;
+	char	*expanded;
 
-	if (!value || value[0] != '$')
-		return (ft_strdup_env(value));
-	var = ft_search_env(value + 1, env);
-	if (!var || !var->value)
+	if (!value)
 		return (ft_strdup_env(""));
-	return (ft_strdup_env(var->value));
+	expanded = expand(value, env, NULL, 0);
+	if (!expanded)
+		return (ft_strdup_env(""));
+	return (expanded);
 }

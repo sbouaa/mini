@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 08:09:25 by amsaq             #+#    #+#             */
-/*   Updated: 2025/07/27 11:09:07 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:43:49 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ static t_redirection	*create_redirection(t_data *data, t_token *current)
 	if (new_redir->type == HEREDOC)
 	{
 		if (handle_heredoc(data, new_redir) != 0)
-		{
-			data->exit_status = 1;
 			return (NULL);
-		}
 	}
 	return (new_redir);
 }

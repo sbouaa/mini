@@ -1,34 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/28 18:01:11 by amsaq             #+#    #+#             */
+/*   Updated: 2025/07/28 20:45:47 by sbouaa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	free_prompt(t_data *data)
-{
-	if (data->prompt)
-	{
-		free(data->prompt);
-		data->prompt = NULL;
-	}
-}
-
-static int	handle_empty_line(char *line)
-{
-	if (line)
-		free(line);
-	return (2);
-}
-
-static int	handle_lexer_error(t_data *data)
-{
-	data->token_list = NULL;
-	free_prompt(data);
-	return (1);
-}
+int	g_signal = 0;
 
 static int	process_expansion(t_data *data, t_env *env)
 {
 	char	*old_prompt;
 
 	old_prompt = data->prompt;
-	data->prompt = expand(data->prompt, env, data);
+	data->prompt = expand(data->prompt, env, data, 0);
 	free(old_prompt);
 	if (lexer(data))
 		return (handle_lexer_error(data));
@@ -41,7 +32,10 @@ int	handle_prompt(t_data *data, t_env *env)
 
 	line = readline("minishell > ");
 	if (!line)
+	{
+		write(1, "exit\n", 5);
 		return (33);
+	}
 	if (line[0] == '\0')
 		return (handle_empty_line(line));
 	data->prompt = line;
@@ -49,7 +43,7 @@ int	handle_prompt(t_data *data, t_env *env)
 	if (lexer(data))
 		return (handle_lexer_error(data));
 	if (check_syntax_errors(data))
-	 	return (handle_lexer_error(data));
+		return (handle_lexer_error(data));
 	if (process_expansion(data, env))
 		return (1);
 	expand_redirections(data->token_list, data->env, data);
@@ -65,25 +59,18 @@ void	execute_commands(t_data *data)
 		data->exit_status = ft_begin_exec(commands, &data->env);
 }
 
-void	set_e_status(int set, int status, t_data *data)
+void	sigint_handler(int sig)
 {
-	static t_data	*ptr;
-
-	if (set)
-		ptr = data;
-	ptr->exit_status = status;
-}
-
-void	signal_handle(int sig)
-{
-	if (sig == SIGQUIT)
-		return ;
-	ft_putstr_fd("\n", 1);
-	//rl_replace_line("", 1);
-	//rl_on_new_line();
-	//rl_redisplay();
-	set_e_status(0, 130, NULL);
 	(void)sig;
+	g_signal = 1;
+	write(1, "\n", 1);
+	//rl_on_new_line();
+	//set_es_signal(0, NULL);
+	//rl_replace_line("", 0);
+	if (!dont_display(0, 0))
+		rl_redisplay();
+	else
+		dont_display(1, 0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -93,16 +80,14 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	if (!isatty(0))
-		return (1);
-	set_e_status(1, 0, &data);
-	signal(SIGINT, &signal_handle);
-	signal(SIGQUIT, &signal_handle);
+	set_es_signal(1, &data);
 	if (init_data(&data) != 0)
 		return (1);
 	data.env = init_data_exec(env);
 	while (1)
 	{
+		dont_display(1, 0);
+		setup_interactive_signals();
 		status = handle_prompt(&data, data.env);
 		if (status == 1 || status == 2)
 			continue ;
@@ -110,10 +95,9 @@ int	main(int ac, char **av, char **env)
 			break ;
 		data.token_list = quote_remove(&data);
 		execute_commands(&data);
-		close_all(-2,1);
+		close_all(-2, 1);
 		g_malloc(0, FREE);
 	}
-	g_malloc(0, FREE);
-	gc_malloc(0, FREE);
-	return (data.exit_status);
+	(close_all(-2, 1), g_malloc(0, FREE));
+	return (gc_malloc(0, FREE), data.exit_status);
 }

@@ -6,34 +6,22 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 08:12:10 by amsaq             #+#    #+#             */
-/*   Updated: 2025/07/27 11:10:06 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:42:38 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	check_pipe_errors(t_token *token)
+int	check_heredoc_errors(t_token *token)
 {
-	if (token->type == PIPE)
+	if (token->type == HEREDOC)
 	{
-		if (!token->next || token->next->type == PIPE)
-		{
-			ft_putstr_fd("Syntax error: unexpected token `|'\n", 2);
-			return (258);
-		}
-	}
-	return (0);
-}
-
-int	check_redirection_errors(t_token *token)
-{
-	if (is_redirection(token))
-	{
-		if (!token->next || !is_word_token(token->next))
-		{
-			ft_putstr_fd("Syntax error: expected filename after redirection\n", 2);
-			return (258);
-		}
+		if (!token->next || !token->next->value[0]
+			|| !is_word_token(token->next))
+			return (ft_putstr_fd("Syntax error: expected dl after `<<'\n", 2), 258);
+		if (token->next->value
+			&& !is_valid_heredoc_delimiter(token->next->value))
+			return (ft_putstr_fd("Syntax error: invalid heredoc dl\n", 2), 258);
 	}
 	return (0);
 }
@@ -71,7 +59,8 @@ int	check_syntax_errors(t_data *data)
 		return (1);
 	while (cur)
 	{
-		if (check_pipe_errors(cur) || check_redirection_errors(cur))
+		if (check_pipe_errors(cur) || check_redirection_errors(cur)
+			|| check_heredoc_errors(cur))
 		{
 			data->exit_status = 258;
 			return (1);

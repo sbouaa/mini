@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:26:15 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 17:26:10 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:28:13 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,15 @@ int	ft_exec(t_command *cmd, t_env **env)
 
 int	ft_begin_exec(t_command *cmds, t_env **env)
 {
-	int	in;
-	int	out;
-	int	exit_status;
+	int				in;
+	int				out;
+	int				exit_status;
+	struct termios	original_terminal;
 
+	tcgetattr(STDIN_FILENO, &original_terminal);
 	if (!cmds)
 		return (0);
+	dont_display(1, 1);
 	exit_status = 0;
 	in = dup(0);
 	out = dup(1);
@@ -106,5 +109,7 @@ int	ft_begin_exec(t_command *cmds, t_env **env)
 	exit_status = ft_exec(cmds, env);
 	if (dup2(in, STDIN_FILENO) < 0 || dup2(out, STDOUT_FILENO) < 0)
 		return (perror("minishell: dup2"), 1);
+	(close(in), close(out));
+	tcsetattr(STDIN_FILENO, TCSANOW, &original_terminal);
 	return (exit_status);
 }
