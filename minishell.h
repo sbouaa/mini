@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 23:21:46 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 17:27:30 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 18:48:11 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ int							var_in_env(char *key, char *var, int type,
 								t_env *env);
 t_env						*init_data_exec(char **envp);
 t_env						*copy_env(t_env *env);
-void						ft_sort_env(t_env *env);
+t_env						*ft_sort_env(t_env *env);
 char						*ft_getkey(char *name, t_env *env);
 
 /* ************************************************************************** */

@@ -6,35 +6,47 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:12:56 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:18:52 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:13:19 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_sort_env(t_env *env)
+void	swap_env(t_env *a, t_env *b)
 {
-	t_env	*ptr;
-	char	*tmp;
+	char	*tmp_key;
+	char	*tmp_val;
 
-	while (env->next)
+	tmp_key = a->key;
+	tmp_val = a->value;
+	a->key = b->key;
+	a->value = b->value;
+	b->key = tmp_key;
+	b->value = tmp_val;
+}
+
+t_env	*ft_sort_env(t_env *env)
+{
+	t_env	*sorted;
+	t_env	*ptr;
+	t_env	*next;
+
+	sorted = copy_env(env);
+	if (!sorted)
+		return (NULL);
+	ptr = sorted;
+	while (ptr)
 	{
-		ptr = env;
-		while (ptr->next)
+		next = ptr->next;
+		while (next)
 		{
-			if (ft_strcmp(ptr->key, ptr->next->key) > 0)
-			{
-				tmp = ptr->key;
-				ptr->key = ptr->next->key;
-				ptr->next->key = tmp;
-				tmp = ptr->value;
-				ptr->value = ptr->next->value;
-				ptr->next->value = tmp;
-			}
-			ptr = ptr->next;
+			if (ft_strcmp(ptr->key, next->key) > 0)
+				swap_env(ptr, next);
+			next = next->next;
 		}
-		env = env->next;
+		ptr = ptr->next;
 	}
+	return (sorted);
 }
 
 char	*expand_var_value(char *value, t_env *env)

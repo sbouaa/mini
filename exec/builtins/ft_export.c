@@ -6,7 +6,7 @@
 /*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 02:58:06 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/27 12:18:32 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:10:54 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ int	ft_export_no_args(t_env *env)
 
 	if (!env)
 		return (1);
-	copy = copy_env(env);
-	ft_sort_env(copy);
+	copy = ft_sort_env(env);
+	if (!copy)
+		return (1);
 	while (copy)
 	{
 		if (ft_strcmp(copy->key, "_") != 0)
