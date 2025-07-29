@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:26:15 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/29 16:54:13 by aminemsaq        ###   ########.fr       */
+/*   Updated: 2025/07/29 19:40:13 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	execute_child_cmd(t_command *cmd, t_env **env)
 		exit(1);
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->args, env_arr);
-	if (errno == ENOEXEC)
-		shell_do(cmd->args[0], env_arr);
 	exit(check_file(cmd->args[0]));
 	return (0);
 }
@@ -69,7 +67,7 @@ int	multi_pipes(t_command	*cmd, t_env	**env)
 	while (cmd)
 	{
 		if (handle_child(cmd, &p, env))
-			return (clean(&p));
+			return (close(p.fd[0]), close(p.fd[1]), close(p.prev_fd), 1);
 		if (p.prev_fd != -1)
 			close(p.prev_fd);
 		if (cmd->next)

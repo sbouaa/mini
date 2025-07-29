@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:10:38 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/29 16:53:28 by aminemsaq        ###   ########.fr       */
+/*   Updated: 2025/07/29 19:33:35 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ int	exec_cmd(char *path, char **env, t_command *cmd)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		execve(path, cmd->args, env);
-		if (errno == ENOEXEC)
-			shell_do(cmd->args[0], env);
 		exit(check_file(cmd->args[0]));
 	}
 	if (pid > 0)

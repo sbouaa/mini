@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 23:21:46 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/29 09:48:30 by aminemsaq        ###   ########.fr       */
+/*   Updated: 2025/07/29 20:17:20 by sbouaa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include "exec/libft/libft.h"
+# include "exec/helper/helper.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdlib.h>
-# include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -97,8 +94,6 @@ typedef struct s_command
 {
 	char				**args;
 	t_redirection		*redirects;
-	int					fd_in;
-	int					fd_out;
 	int					exit_status;
 	struct s_command	*next;
 }						t_command;
@@ -162,10 +157,10 @@ typedef struct s_word_info
 	int	has_dollar;
 }		t_word_info;
 
-t_col		*new_node_s(void *ptr);
-t_col		*last_node_s(t_col **head);
-void		add_back_s(t_col **head, t_col *node);
-void		clear_all_s(t_col **head);
+t_col		*new_node_env(void *ptr);
+t_col		*last_node_env(t_col **head);
+void		add_back_env(t_col **head, t_col *node);
+void		clear_all_env(t_col **head);
 void		*gc_malloc(size_t size, t_call call);
 t_col		*new_node(void *ptr);
 t_col		*last_node(t_col **head);
@@ -222,8 +217,6 @@ int			multi_pipes(t_command *cmd, t_env **env);
 int			execute_single(t_command *cmd, t_env **env);
 int			check_file(char *name);
 void		close_all(int fd, int flag);
-void		shell_do(char *arg, char **env);
-int			clean(t_pipe *p);
 int			init_data(t_data *data);
 int			is_token(char c);
 int			is_space(int c);
@@ -296,7 +289,6 @@ void		restore_interactive_signals(void);
 char		*create_heredoc_filename(void);
 t_token		*find_delimiter_token(t_data *data, char *delimiter);
 void		ft_bzero(void *s, size_t n);
-void		rl_replace_line(const char *text, int clear_undo);
 void		handle_export_dollar(t_expand *exp, t_env *env, t_data *data);
 
 #endif
