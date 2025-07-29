@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 01:55:25 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 17:27:54 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/29 09:42:30 by aminemsaq        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,8 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 
 char	*ft_getkey(char *name, t_env *env)
 {
-	int	i;
-
 	if (!name || !env)
 		return (NULL);
-	i = ft_strlen(name);
 	while (env)
 	{
 		if (ft_strcmp(env->key, name) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 23:21:46 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 23:01:14 by amsaq            ###   ########.fr       */
+/*   Updated: 2025/07/29 09:48:30 by aminemsaq        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@
 # define DEF_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 extern int	g_signal;
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                 STRUCTURES                                  */
-/*                                                                            */
-/* ************************************************************************** */
 
 typedef struct s_col
 {
@@ -119,7 +113,7 @@ typedef struct s_data
 	t_gc		gc;
 	t_env		*env;
 	int			heredoc_fd;
-	int 		flag_herdoc;
+	int			flag_herdoc;
 }				t_data;
 
 typedef struct s_quote_ctx
@@ -168,12 +162,6 @@ typedef struct s_word_info
 	int	has_dollar;
 }		t_word_info;
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                              GARBAGE COLLECTOR                              */
-/*                                                                            */
-/* ************************************************************************** */
-
 t_col		*new_node_s(void *ptr);
 t_col		*last_node_s(t_col **head);
 void		add_back_s(t_col **head, t_col *node);
@@ -184,13 +172,6 @@ t_col		*last_node(t_col **head);
 void		add_back(t_col **head, t_col *node);
 void		clear_all(t_col **head);
 void		*g_malloc(size_t size, t_call call);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                               BUILT-IN COMMANDS                             */
-/*                                                                            */
-/* ************************************************************************** */
-
 void		echo(char **args);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_env(t_env *env);
@@ -200,13 +181,6 @@ void		ft_exit(char **args);
 int			ft_unset(char **args, t_env **env);
 int			ft_export(char **args, t_env *env);
 int			ft_export_no_args(t_env *env);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              ENVIRONMENT FUNCTIONS                           */
-/*                                                                            */
-/* ************************************************************************** */
-
 t_env		*init_env(char **envp);
 t_env		*def_env(void);
 char		*ft_getenv(char *name, t_env *env);
@@ -227,13 +201,6 @@ t_env		*copy_env(t_env *env);
 t_env		*ft_sort_env(t_env *env);
 char		*ft_getkey(char *name, t_env *env);
 char		*expand_var_value(char *value, t_env *env);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              EXECUTION FUNCTIONS                            */
-/*                                                                            */
-/* ************************************************************************** */
-
 char		**switch_env_arr(t_env *env);
 int			ft_exec(t_command *cmds, t_env **env);
 int			ft_begin_exec(t_command *cmds, t_env **env);
@@ -257,13 +224,6 @@ int			check_file(char *name);
 void		close_all(int fd, int flag);
 void		shell_do(char *arg, char **env);
 int			clean(t_pipe *p);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              LEXER FUNCTIONS                                */
-/*                                                                            */
-/* ************************************************************************** */
-
 int			init_data(t_data *data);
 int			is_token(char c);
 int			is_space(int c);
@@ -280,24 +240,10 @@ int			process_word_char(char *line, int *i, char *current_quote,
 				t_word_info *info);
 int			handle_error_and_cleanup(t_data *data);
 int			is_export_command(t_data *data);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              TOKEN FUNCTIONS                                */
-/*                                                                            */
-/* ************************************************************************** */
-
 t_token		*add_node_to_back(t_data *data, t_token_type type,
 				const char *value);
 char		*get_token_type_string(t_token_type type);
 t_token		*quote_remove(t_data *data);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              PARSING FUNCTIONS                              */
-/*                                                                            */
-/* ************************************************************************** */
-
 t_command	*parse_tokens(t_data *data);
 t_command	*parse_command(t_data *data, t_command **head,
 				t_command *current_command);
@@ -305,34 +251,13 @@ int			parse_redirection(t_data *data, t_command *cmd, t_token *current);
 t_command	*parse_pipe(t_data *data, t_command *current_command);
 void		add_argument(t_data *data, t_command *cmd, char *value);
 int			handle_heredoc(t_data *data, t_redirection *redir);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              TOKEN HANDLING                                 */
-/*                                                                            */
-/* ************************************************************************** */
-
 int			handle_word_token(t_parse_context *ctx, t_token *current);
 int			handle_redirection_token(t_parse_context *ctx, t_token *current);
 int			is_redirection_token(int type);
 t_token		*handle_redirection_parsing(t_parse_context *ctx,
 				t_token *current);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              ERROR HANDLING                                 */
-/*                                                                            */
-/* ************************************************************************** */
-
 t_token		*handle_error_and_skip_to_pipe(t_command **head,
 				t_command **current_cmd, t_token *current);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              EXPANSION FUNCTIONS                            */
-/*                                                                            */
-/* ************************************************************************** */
-
 char		*expand(char *prompt, t_env *env, t_data *data);
 void		expand_redirections(t_token *token, t_env *env, t_data *data);
 void		update_quote_states(char c, int *in_s, int *in_d);
@@ -348,13 +273,6 @@ void		expand_loop(t_expand *exp, t_env *env, t_data *data,
 void		handle_exit_status(t_expand *exp, t_data *data);
 void		skip_redirect_part(t_expand *exp);
 void		skip_redirect_spaces(t_expand *exp);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              SYNTAX ERROR FUNCTIONS                         */
-/*                                                                            */
-/* ************************************************************************** */
-
 int			check_syntax_errors(t_data *data);
 int			check_pipe_errors(t_token *token);
 int			check_redirection_errors(t_token *token);
@@ -362,46 +280,21 @@ int			is_redirection(t_token *token);
 int			is_word_token(t_token *token);
 int			is_valid_heredoc_delimiter(char *delimiter);
 int			check_heredoc_errors(t_token *token);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              MAIN AND UTILITY FUNCTIONS                     */
-/*                                                                            */
-/* ************************************************************************** */
-
 int			handle_prompt(t_data *data, t_env *env);
 void		execute_commands(t_data *data);
 void		sigint_handler(int sig);
-
 void		free_prompt(t_data *data);
 int			handle_empty_line(char *line);
 int			handle_lexer_error(t_data *data);
 int			dont_display(int set, int value);
 void		setup_interactive_signals(void);
-
-void		print_parsed_commands(t_command *cmd);
-void		print_tokens(t_token *token);
 void		set_es_signal(int set, t_data *data);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              SIGNAL AND HEREDOC FUNCTIONS                   */
-/*                                                                            */
-/* ************************************************************************** */
-
 void		sigint_heredoc(int sig);
 void		setup_heredoc_signals_child(void);
 void		setup_heredoc_signals_parent(void);
 void		restore_interactive_signals(void);
 char		*create_heredoc_filename(void);
 t_token		*find_delimiter_token(t_data *data, char *delimiter);
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                              ADDITIONAL UTILITY FUNCTIONS                   */
-/*                                                                            */
-/* ************************************************************************** */
-
 void		ft_bzero(void *s, size_t n);
 void		rl_replace_line(const char *text, int clear_undo);
 void		handle_export_dollar(t_expand *exp, t_env *env, t_data *data);

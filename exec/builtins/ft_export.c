@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 02:58:06 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 20:10:54 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/29 09:42:18 by aminemsaq        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	to_env(char *key, char *var, int type, t_env *env)
 		if (!value)
 			return (1);
 		expanded = expand_var_value(value, env);
-		add_env_var(key, value, &env);
+		add_env_var(key, expanded, &env);
 		return (1);
 	}
 	return (0);

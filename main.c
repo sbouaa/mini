@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:01:11 by amsaq             #+#    #+#             */
-/*   Updated: 2025/07/28 22:43:03 by amsaq            ###   ########.fr       */
+/*   Updated: 2025/07/29 09:44:04 by aminemsaq        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	main(int ac, char **av, char **env)
 		data.token_list = quote_remove(&data);
 		execute_commands(&data);
 		close_all(-2, 1);
-		g_malloc(0, FREE);
 	}
 	(close_all(-2, 1), g_malloc(0, FREE));
 	return (gc_malloc(0, FREE), data.exit_status);
