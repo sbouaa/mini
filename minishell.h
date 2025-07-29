@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 23:21:46 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/29 20:17:20 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/29 20:50:52 by amsaq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define MINISHELL_H
 
 # include "exec/helper/helper.h"
+# include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdlib.h>
