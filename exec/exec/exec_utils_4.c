@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amsaq <amsaq@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 21:14:55 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 22:27:47 by amsaq            ###   ########.fr       */
+/*   Updated: 2025/07/29 16:52:29 by aminemsaq        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	red(t_redirection *redir)
 	else if (redir->type == APPEND)
 		return (app_red(redir->file));
 	else if (redir->type == HEREDOC)
-		return (in_red(redir->file));
+		return (in_red(redir->file), unlink(redir->file));
 	return (0);
 }
 

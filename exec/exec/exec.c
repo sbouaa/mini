@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouaa <sbouaa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aminemsaq <aminemsaq@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:26:15 by sbouaa            #+#    #+#             */
-/*   Updated: 2025/07/28 20:28:13 by sbouaa           ###   ########.fr       */
+/*   Updated: 2025/07/29 16:54:13 by aminemsaq        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	execute_child_cmd(t_command *cmd, t_env **env)
 	env_arr = switch_env_arr(*env);
 	if (!env_arr)
 		exit(1);
+	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->args, env_arr);
 	if (errno == ENOEXEC)
 		shell_do(cmd->args[0], env_arr);
